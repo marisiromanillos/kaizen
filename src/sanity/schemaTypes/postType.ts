@@ -31,5 +31,11 @@ export const postType = defineType({
       type: 'array',
       of: [{type: 'block'}],
     }),
+    defineField({
+      name: 'author',
+      type: 'string',
+      validation: (rule) => rule.required(),
+    }),
+
   ],
 })
