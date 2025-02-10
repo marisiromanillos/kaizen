@@ -30,18 +30,20 @@ export default async function PostPage({
         ← Back to posts
       </Link>
       {postImageUrl && (
+        // eslint-disable-next-line @next/next/no-img-element
         <img
           src={postImageUrl}
           alt={post.title}
           className="aspect-video rounded-xl"
           width="550"
           height="310"
-        />cd
+        />
       )}
       <h1 className="text-4xl font-bold mb-8">{post.title}</h1>
       <div className="prose">
         <p>Published: {new Date(post.publishedAt).toLocaleDateString()}</p>
         {Array.isArray(post.body) && <PortableText value={post.body} />}
+        <h3>{post.author}</h3>
       </div>
     </main>
   );
