@@ -13,6 +13,7 @@ export const postType = defineType({
     defineField({
       name: 'slug',
       type: 'slug',
+      description: 'This is part of the URL, click on generate and will show the title as part of the URL',
       options: {source: 'title'},
       validation: (rule) => rule.required(),
     }),
@@ -27,9 +28,70 @@ export const postType = defineType({
       type: 'image',
     }),
     defineField({
-      name: 'body',
+      name: 'Paragraph1',
       type: 'array',
       of: [{type: 'block'}],
+    }),
+    defineField({
+      name: 'image1',
+      type: 'image',
+      options: {
+        hotspot: true
+      },
+      fields: [
+        defineField({
+          name: 'caption',
+          type: 'string',
+        }),
+        defineField({
+          name: 'attribution',
+          type: 'string',
+        })
+      ]
+    }),
+    defineField({
+      name: 'Paragraph2',
+      type: 'array',
+      of: [{type: 'block'}],
+    }),
+    defineField({
+      name: 'image2',
+      type: 'image',
+      options: {
+        hotspot: true
+      },
+      fields: [
+        defineField({
+          name: 'caption',
+          type: 'string',
+        }),
+        defineField({
+          name: 'attribution',
+          type: 'string',
+        })
+      ]
+    }),
+    defineField({
+      name: 'Paragraph3',
+      type: 'array',
+      of: [{type: 'block'}],
+    }),
+    defineField({
+      name: 'image3',
+      type: 'image',
+      options: {
+        hotspot: true
+      },
+      fields: [
+        defineField({
+          name: 'caption',
+          type: 'string',
+        }),
+        defineField({
+          name: 'attribution',
+          type: 'string',
+        })
+      ]
     }),
     defineField({
       name: 'author',
