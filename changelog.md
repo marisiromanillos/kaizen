@@ -8,6 +8,8 @@
 - Post Navigation with "back to posts"
 -Blog post page component with Sanity.io integration
 - PortableText rendering support
+- Styling Post type
+- Add Meta description
 
 ### Changed
 
