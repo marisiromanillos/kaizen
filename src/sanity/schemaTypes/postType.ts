@@ -22,6 +22,7 @@ export const postType = defineType({
       type: 'datetime',
       initialValue: () => new Date().toISOString(),
       validation: (rule) => rule.required(),
+
     }),
     defineField({
       name: 'image',

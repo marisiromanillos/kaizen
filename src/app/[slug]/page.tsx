@@ -54,7 +54,7 @@ const components: Partial<PortableTextReactComponents> = {
 };
 
 const PostImage = ({ image, alt }: { image: SanityImage; alt: string }) => (
-  <div className="relative w-full my-12 first-of-type:my">
+  <div className="relative w-full my-12 first-of-type:my-6">
     <Image
       src={builder.image(image).quality(90).url()}
       alt={alt}
@@ -86,15 +86,20 @@ export default async function PostPage({
       <Link href="/blog" className="hover:underline">
         ← Back to posts
       </Link>
-
-      <h1 className="text-4xl text-center font-bold my-8">{post.title}</h1>
-
+      {/* Post Date */}
+      <p className="font-bold text-xs pt-4">{new Date(post.publishedAt).toLocaleDateString('en-US', {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric'
+        })}
+      </p>
+      <h1 className="text-4xl text-center font-bold mt-4">{post.title}</h1>
       {post.image?.asset && <PostImage image={post.image} alt={post.title} />}
 
       <div className="prose">
-        <p>Published: {new Date(post.publishedAt).toLocaleDateString()}</p>
         {Array.isArray(post.body) && <PortableText value={post.body} />}
-        <h3>{post.author}</h3>
+        <h3 className="font-bold">{post.author}</h3>
       </div>
 
       <div className="my-4 max-w-prose">
