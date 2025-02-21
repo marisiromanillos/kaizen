@@ -54,14 +54,13 @@ const components: Partial<PortableTextReactComponents> = {
 };
 
 const PostImage = ({ image, alt }: { image: SanityImage; alt: string }) => (
-  <div className="relative w-full my-12 first-of-type:my-6">
+  <div className="relative mx-auto my-12 first-of-type:my-6">
     <Image
       src={builder.image(image).quality(90).url()}
       alt={alt}
       width={700}
       height={500}
-      className="rounded-xl object-cover w-full"
-      // loading="lazy"
+      className="rounded-xl object-cover mx-auto"
       sizes="(max-width: 768px) 100vw, 700px"
       priority
     />
@@ -82,45 +81,50 @@ export default async function PostPage({
   const post = await client.fetch<Post>(POST_QUERY, await params, options);
 
   return (
-    <main className="container mx-auto min-h-screen max-w-3xl p-8 flex flex-col gap-4">
-      <Link href="/blog" className="hover:underline">
-        ← Back to posts
-      </Link>
-      {/* Post Date */}
-      <p className="font-bold text-xs pt-4">{new Date(post.publishedAt).toLocaleDateString('en-US', {
-            weekday: 'long',
-            year: 'numeric',
-            month: 'short',
-            day: 'numeric'
-        })}
-      </p>
-      <h1 className="text-4xl text-center font-bold mt-4">{post.title}</h1>
-      {post.image?.asset && <PostImage image={post.image} alt={post.title} />}
+    <main className="wrapper border-x border-white py-15 mx-auto w-full flex flex-col gap-4">
+      <div className="container max-w-4xl">
+        <Link href="/blog" className="hover:underline text-sm font-bold">
+          ← Back to all blogs
+        </Link>
+        {/* Post Date */}
+          <h1 className="text-4xl text-center  mt-4">{post.title}</h1>
+        {post.image?.asset && <PostImage image={post.image} alt={post.title} />}
+        <div className="font-bold space-y-4">
+          <p className="text-xs">{new Date(post.publishedAt).toLocaleDateString('en-US', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+            })}
+          </p>
+          <h3 className="text-lg">{post.author}</h3>
+        </div>
 
-      <div className="prose">
-        {Array.isArray(post.body) && <PortableText value={post.body} />}
-        <h3 className="font-bold">{post.author}</h3>
+        <div className="prose">
+          {Array.isArray(post.body) && <PortableText value={post.body} />}
+        </div>
+
+        <div className="my-4 container">
+          {[1, 2, 3, 4].map((num) => (
+            <div key={num}>
+              {post[`Paragraph${num}`] && (
+                <PostParagraph content={post[`Paragraph${num}`]} />
+              )}
+              {post[`image${num}`]?.asset && (
+                <PostImage
+                  image={post[`image${num}`]}
+                  alt={post[`image${num}`]?.attribution || ''}
+
+                />
+              )}
+            </div>
+          ))}
+        </div>
+
+        <Link href="/blog" className="hover:underline font-bold">
+        ← Back to all blogs
+        </Link>
       </div>
-
-      <div className="my-4 max-w-prose">
-        {[1, 2, 3, 4].map((num) => (
-          <div key={num}>
-            {post[`Paragraph${num}`] && (
-              <PostParagraph content={post[`Paragraph${num}`]} />
-            )}
-            {post[`image${num}`]?.asset && (
-              <PostImage
-                image={post[`image${num}`]}
-                alt={post[`image${num}`]?.attribution || ''}
-              />
-            )}
-          </div>
-        ))}
-      </div>
-
-      <Link href="/blog" className="hover:underline">
-        ← Back to posts
-      </Link>
     </main>
   );
 }
