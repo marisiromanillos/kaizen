@@ -10,15 +10,16 @@
 - PortableText rendering support
 - Styling Post type
 - Add Meta description
+- Add tailwind config container and wrapper
+
 
 ### Changed
-
 - Improved TypeScript types for Post interface
 - Simplified Post type definition by combining all properties into a single interface
 - Enhanced image loading with priority flag for better performance
+- Change Blog page ui
 
 ### Fixed
-
 - TypeScript error related to index signatures
 - Proper type definitions for dynamic paragraph and image fields
 - Type safety for Sanity document structure
