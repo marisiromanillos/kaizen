@@ -1,13 +1,13 @@
 import Link from "next/link";
 import Image from "next/image";
-import { type SanityDocument } from "next-sanity";
 import { client } from "@/sanity/client";
-import imageUrlBuilder from '@sanity/image-url'
+import imageUrlBuilder from "@sanity/image-url";
+import { POSTS_QUERY } from "@/sanity/lib/queries";
 
 // Initialize the image URL builder
-const builder = imageUrlBuilder(client)
+const builder = imageUrlBuilder(client);
 
-// Define a type for the Post structure
+// // Define a type for the Post structure
 type Post = {
   _id: string;
   title: string;
@@ -28,26 +28,6 @@ type Post = {
   };
 };
 
-const POSTS_QUERY = `*[
-  _type == "post"
-  && defined(slug.current)
-]|order(publishedAt desc)[0...12]{
-  _id,
-  title,
-  publishedAt,
-  slug,
-  image {
-    asset->{
-      _ref,
-      url,
-      metadata {
-        dimensions,
-        lqip
-      }
-    }
-  }
-}`;
-
 const options = { next: { revalidate: 30 } };
 
 export default async function IndexPage() {
@@ -64,8 +44,13 @@ export default async function IndexPage() {
                 {post.image?.asset && (
                   <div className="relative aspect-[16/9] w-full mb-4">
                     <Image
-                      src={builder.image(post.image).width(700).height(500).quality(90).url()}
-                      alt={post.title || 'Post image'}
+                      src={builder
+                        .image(post.image)
+                        .width(700)
+                        .height(500)
+                        .quality(90)
+                        .url()}
+                      alt={post.title || "Post image"}
                       fill
                       className="rounded-xl object-center"
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

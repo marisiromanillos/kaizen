@@ -105,15 +105,6 @@ export default {
         'nvp-80': 'calc(80vh - var(--vh-offest, 0px) - var(--nav-height, 0px))',
         'nvp-90': 'calc(90vh - var(--vh-offest, 0px) - var(--nav-height, 0px))',
       },
-      zIndex: {
-        100: 100,
-        150: 150,
-        250: 250,
-        300: 300,
-        350: 350,
-        modal: 9999
-      },
-
     },
   },
   plugins: [
