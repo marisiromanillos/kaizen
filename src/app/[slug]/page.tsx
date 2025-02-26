@@ -1,11 +1,15 @@
-import { PortableText, PortableTextReactComponents, type SanityDocument } from "next-sanity";
+import {
+  PortableText,
+  PortableTextReactComponents,
+  type SanityDocument,
+} from "next-sanity";
 import imageUrlBuilder from "@sanity/image-url";
 import { client } from "@/sanity/client";
 import Link from "next/link";
 import Image from "next/image";
 import { PortableTextBlock } from "@portabletext/types";
+import { POST_QUERY } from "@/sanity/lib/queries";
 
-const POST_QUERY = `*[_type == "post" && slug.current == $slug][0]`;
 const builder = imageUrlBuilder(client);
 const options = { next: { revalidate: 30 } };
 
@@ -33,14 +37,21 @@ interface Post extends SanityDocument {
   image4?: SanityImage;
 }
 
-
 const components: Partial<PortableTextReactComponents> = {
   block: {
     normal: ({ children }) => <p className="mb-4 leading-6">{children}</p>,
-    h1: ({ children }) => <h1 className="text-3xl font-bold mb-4">{children}</h1>,
-    h2: ({ children }) => <h2 className="text-2xl font-bold mb-3">{children}</h2>,
-    h3: ({ children }) => <h3 className="text-xl font-bold mb-3">{children}</h3>,
-    blockquote: ({ children }) => <blockquote className="border-l-4 pl-4 mb-4">{children}</blockquote>,
+    h1: ({ children }) => (
+      <h1 className="text-3xl font-bold mb-4">{children}</h1>
+    ),
+    h2: ({ children }) => (
+      <h2 className="text-2xl font-bold mb-3">{children}</h2>
+    ),
+    h3: ({ children }) => (
+      <h3 className="text-xl font-bold mb-3">{children}</h3>
+    ),
+    blockquote: ({ children }) => (
+      <blockquote className="border-l-4 pl-4 mb-4">{children}</blockquote>
+    ),
   },
   marks: {
     strong: ({ children }) => <strong className="font-bold">{children}</strong>,
@@ -48,8 +59,12 @@ const components: Partial<PortableTextReactComponents> = {
     underline: ({ children }) => <u>{children}</u>,
   },
   list: {
-    bullet: ({ children }) => <ul className="list-disc ml-4 mb-4">{children}</ul>,
-    number: ({ children }) => <ol className="list-decimal ml-4 mb-4">{children}</ol>,
+    bullet: ({ children }) => (
+      <ul className="list-disc ml-4 mb-4">{children}</ul>
+    ),
+    number: ({ children }) => (
+      <ol className="list-decimal ml-4 mb-4">{children}</ol>
+    ),
   },
 };
 
@@ -87,14 +102,15 @@ export default async function PostPage({
           ← Back to all blogs
         </Link>
         {/* Post Date */}
-          <h1 className="text-4xl text-center  mt-4">{post.title}</h1>
+        <h1 className="text-4xl text-center  mt-4">{post.title}</h1>
         {post.image?.asset && <PostImage image={post.image} alt={post.title} />}
         <div className="font-bold space-y-4">
-          <p className="text-xs">{new Date(post.publishedAt).toLocaleDateString('en-US', {
-                weekday: 'long',
-                year: 'numeric',
-                month: 'short',
-                day: 'numeric'
+          <p className="text-xs">
+            {new Date(post.publishedAt).toLocaleDateString("en-US", {
+              weekday: "long",
+              year: "numeric",
+              month: "short",
+              day: "numeric",
             })}
           </p>
           <h3 className="text-lg">{post.author}</h3>
@@ -113,8 +129,7 @@ export default async function PostPage({
               {post[`image${num}`]?.asset && (
                 <PostImage
                   image={post[`image${num}`]}
-                  alt={post[`image${num}`]?.attribution || ''}
-
+                  alt={post[`image${num}`]?.attribution || ""}
                 />
               )}
             </div>
@@ -122,7 +137,7 @@ export default async function PostPage({
         </div>
 
         <Link href="/blog" className="hover:underline font-bold">
-        ← Back to all blogs
+          ← Back to all blogs
         </Link>
       </div>
     </main>
