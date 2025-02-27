@@ -4,11 +4,11 @@ import {
   type SanityDocument,
 } from "next-sanity";
 import imageUrlBuilder from "@sanity/image-url";
-import { client } from "@/sanity/client";
+import { client } from "../../sanity/client";
 import Link from "next/link";
 import Image from "next/image";
 import { PortableTextBlock } from "@portabletext/types";
-import { POST_QUERY } from "@/sanity/lib/queries";
+import { POST_QUERY } from "../../sanity/lib/queries";
 
 const builder = imageUrlBuilder(client);
 const options = { next: { revalidate: 30 } };
@@ -96,13 +96,15 @@ export default async function PostPage({
   const post = await client.fetch<Post>(POST_QUERY, await params, options);
 
   return (
-    <main className="wrapper border-x border-white py-15 mx-auto w-full flex flex-col gap-4">
+    <main className="wrapper border-x border-lightGreen py-15 mx-auto w-full flex flex-col gap-4">
       <div className="container max-w-4xl">
         <Link href="/blog" className="hover:underline text-sm font-bold">
           ← Back to all blogs
         </Link>
         {/* Post Date */}
-        <h1 className="text-4xl text-center  mt-4">{post.title}</h1>
+        <h1 className="text-4xl text-center text-lightGreen mt-4">
+          {post.title}
+        </h1>
         {post.image?.asset && <PostImage image={post.image} alt={post.title} />}
         <div className="font-bold space-y-4">
           <p className="text-xs">

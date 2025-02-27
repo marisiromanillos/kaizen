@@ -1,8 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
-import { client } from "@/sanity/client";
+import { client } from "../../sanity/client";
 import imageUrlBuilder from "@sanity/image-url";
-import { POSTS_QUERY } from "@/sanity/lib/queries";
+import { POSTS_QUERY } from "../../sanity/lib/queries";
 
 // Initialize the image URL builder
 const builder = imageUrlBuilder(client);
