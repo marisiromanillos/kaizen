@@ -68,15 +68,16 @@ const components: Partial<PortableTextReactComponents> = {
   },
 };
 
+// Updated PostImage component with responsive settings
 const PostImage = ({ image, alt }: { image: SanityImage; alt: string }) => (
-  <div className="relative mx-auto my-12 first-of-type:my-6">
+  <div className="relative w-full aspect-[16/9] my-12 first-of-type:my-6">
     <Image
       src={builder.image(image).quality(90).url()}
       alt={alt}
-      width={700}
-      height={500}
-      className="rounded-xl object-cover mx-auto"
-      sizes="(max-width: 768px) 100vw, 700px"
+      width={0}
+      height={0}
+      sizes="100vw"
+      style={{ width: "100%", height: "auto" }}
       priority
     />
   </div>
