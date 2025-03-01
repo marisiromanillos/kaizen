@@ -7,8 +7,11 @@ const Nav = () => {
   const [open, setOpen] = useState(false);
 
   const openNav = () => setOpen(!open);
-
-  const navLinks = [
+  interface Nav {
+    name: string;
+    href: string;
+  }
+  const navLinks: Nav[] = [
     { name: "Home", href: "/" },
     { name: "About", href: "/about" },
     { name: "Services", href: "/services" },
@@ -19,14 +22,15 @@ const Nav = () => {
     <header className="relative border-b border-lightGreen">
       {/* Centered container for desktop */}
       <div className="wrapper mx-auto px-6">
-        <div className="flex justify-between items-center py-6">
+        <div className="flex justify-between items-center py-4">
           {/* Logo */}
           <div>
             <Image
               src="/logo-white.webp"
               alt="kaizen soho london physiotherapist logo"
-              width={35}
-              height={35}
+              width={150} // Intrinsic width
+              height={50} // Intrinsic height
+              style={{ width: "45px", height: "auto" }} // Rendered size
               blurDataURL="/logo-white.webp"
               priority
             />

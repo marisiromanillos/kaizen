@@ -11,6 +11,10 @@
 - Styling Post type
 - Add Meta description
 - Add tailwind config container and wrapper
+- Add navbar for mobile and desktop
+- Add hero section
+- Add Video re usable component
+- Add re usable button component
 
 
 ### Changed
@@ -23,3 +27,4 @@
 - TypeScript error related to index signatures
 - Proper type definitions for dynamic paragraph and image fields
 - Type safety for Sanity document structure
+- Image width and size for post images fixed
